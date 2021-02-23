@@ -1,0 +1,82 @@
+﻿@model CookBookProject.Models.Vegetarian
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Vegetarian</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <br />
+        <dt>Image</dt>
+        <dd>
+            <img src="@Html.DisplayFor(model=>model.ImgURL)" style="max-width:200px; max-height:200px"
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Ingredients)
+        </dt>
+
+        <dd>
+            @{
+                var splittedIngredients = Model.Ingredients.Split(',');
+                foreach (var ingredient in splittedIngredients)
+                {
+                    <ul>
+                        <li>@ingredient</li>
+                    </ul>
+                }
+            }
+
+        </dd>
+        <br />
+        <dt>
+
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            <ol>
+                @{
+                    var splittedDescription = Model.Description.Split('.');
+                    foreach (var description in splittedDescription)
+                    {
+
+                        <li>@description</li>
+
+                    }
+                }
+            </ol>
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (User.IsInRole("Administrator") || User.IsInRole("Editor"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id }) <span>|</span>
+    }
+    @Html.ActionLink("Back to List", "Index") |
+    <a href="/">Home</a>
+</p>
